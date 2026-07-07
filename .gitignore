@@ -1,0 +1,13 @@
+# Projekty Java / IntelliJ / Eclipse
+.idea/
+*.iml
+out/
+target/
+bin/
+
+# Systemowe i IDE
+.vscode/
+.DS_Store
+
+# Logi
+*.log
