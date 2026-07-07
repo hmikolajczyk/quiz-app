@@ -13,4 +13,17 @@ public class Question {
         this.answerOptions = answerOptions;
         this.correctAnswersIndex = correctAnswersIndex;
     }
+
+    public QuestionType getQuestionType() {
+        return questionType;
+    }
+    public String getQuestionText() {
+        return questionText;
+    }
+    public List<String> getAnswerOptions() {
+        return answerOptions;
+    }
+    public List<Integer> getCorrectAnswersIndex() {
+        return correctAnswersIndex;
+    }
 }
