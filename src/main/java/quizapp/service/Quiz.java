@@ -1,4 +1,6 @@
 package quizapp.service;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import quizapp.model.Question;
 import quizapp.model.QuestionType;
@@ -29,16 +31,14 @@ public class Quiz {
         questionIndex++;
     }
 
-    public boolean isAnswerCorrect(int choosenAnswer) {
+    public boolean isAnswerCorrect(List<Integer> chosenAnswers) {
         Question currentQuestion = getCurrentQuestion();
         List<Integer> correctAnswers = currentQuestion.getCorrectAnswersIndex();
-        if(currentQuestion.getQuestionType() == QuestionType.SINGLE_CHOICE) {
-            if(correctAnswers.get(0) == choosenAnswer) {
-                userPoints++;
-                return true;
-            }
+        List<Integer> sortedChosenAnswers = new ArrayList<>(chosenAnswers);
+        Collections.sort(sortedChosenAnswers);
+        if(currentQuestion.getQuestionType() == QuestionType.SINGLE_CHOICE && sortedChosenAnswers.size() != 1) {
+            return false;
         }
-        // TODO: Sprawdzenie pytania wielokrotnej odpowiedzi
-        return false;
+        return sortedChosenAnswers.equals(correctAnswers);
     }
 }

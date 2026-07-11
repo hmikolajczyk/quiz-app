@@ -1,4 +1,6 @@
 package quizapp.model;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Question {
@@ -11,7 +13,9 @@ public class Question {
         this.questionType = questionType;
         this.questionText = questionText;
         this.answerOptions = answerOptions;
-        this.correctAnswersIndex = correctAnswersIndex;
+        List<Integer> sortedCorrectAnswersIndex = new ArrayList<>(correctAnswersIndex);
+        Collections.sort(sortedCorrectAnswersIndex);
+        this.correctAnswersIndex = sortedCorrectAnswersIndex;
     }
 
     public QuestionType getQuestionType() {
