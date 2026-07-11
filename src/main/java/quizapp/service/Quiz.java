@@ -23,4 +23,8 @@ public class Quiz {
         }
         return questionList.get(questionIndex);
     }
+
+    public void nextQuestion() {
+        questionIndex++;
+    }
 }
