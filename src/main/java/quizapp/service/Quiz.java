@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import quizapp.model.Question;
-import quizapp.model.QuestionType;
 
 public class Quiz {
     private final List<Question> questionList;
@@ -36,9 +35,7 @@ public class Quiz {
         List<Integer> correctAnswers = currentQuestion.getCorrectAnswersIndex();
         List<Integer> sortedChosenAnswers = new ArrayList<>(chosenAnswers);
         Collections.sort(sortedChosenAnswers);
-        if(currentQuestion.getQuestionType() == QuestionType.SINGLE_CHOICE && sortedChosenAnswers.size() != 1) {
-            return false;
-        }
+        
         return sortedChosenAnswers.equals(correctAnswers);
     }
 }
