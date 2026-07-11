@@ -1,6 +1,7 @@
 package quizapp.service;
 import java.util.List;
 import quizapp.model.Question;
+import quizapp.model.QuestionType;
 
 public class Quiz {
     private final List<Question> questionList;
@@ -26,5 +27,18 @@ public class Quiz {
 
     public void nextQuestion() {
         questionIndex++;
+    }
+
+    public boolean isAnswerCorrect(int choosenAnswer) {
+        Question currentQuestion = getCurrentQuestion();
+        List<Integer> correctAnswers = currentQuestion.getCorrectAnswersIndex();
+        if(currentQuestion.getQuestionType() == QuestionType.SINGLE_CHOICE) {
+            if(correctAnswers.get(0) == choosenAnswer) {
+                userPoints++;
+                return true;
+            }
+        }
+        // TODO: Sprawdzenie pytania wielokrotnej odpowiedzi
+        return false;
     }
 }
