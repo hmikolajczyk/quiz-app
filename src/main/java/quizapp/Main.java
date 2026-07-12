@@ -6,6 +6,7 @@ import java.util.Scanner;
 import quizapp.model.Question;
 import quizapp.model.QuestionType;
 import quizapp.service.Quiz;
+import quizapp.util.InputParser;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,25 +22,12 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         String userAnswer = scanner.nextLine();
-        List<Integer> answerIndices = convertUserLettersToIndices(userAnswer);
+        List<Integer> answerIndices = InputParser.convertUserLettersToIndices(userAnswer, " +");
 
         if(quizTest.isAnswerCorrect(answerIndices)) {
             System.out.println("Poprawne odpowiedzi.");
         } else {
             System.out.println("Błędne odpowiedzi.");
         }
-    }
-
-    private static List<Integer> convertUserLettersToIndices(String input) {
-        String[] splitAnswers = input.toLowerCase().split(" ");
-        List<Integer> answerIndices = new ArrayList<>();
-
-        for(String answer : splitAnswers) {
-            char letter = answer.charAt(0);
-            int index = letter - 'a';
-            answerIndices.add(index);
-        }
-
-        return answerIndices;
     }
 }
