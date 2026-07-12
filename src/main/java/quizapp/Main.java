@@ -10,9 +10,9 @@ import quizapp.util.InputParser;
 
 public class Main {
     public static void main(String[] args) {
-        Question question1 = new Question(QuestionType.SINGLE_CHOICE, "Treść pytania nr 1", List.of("A: Opcja A", "B: Opcja B", "C: Opcja C"), List.of(0));
+        Question question1 = new Question(QuestionType.SINGLE_CHOICE, "Treść pytania nr 1", List.of("A: Poprawna", "B: Błędna", "C: Błędna"), List.of(0));
 
-        Question question2 = new Question(QuestionType.SINGLE_CHOICE, "Treść pytania nr 2", List.of("A: Opcja A", "B: Opcja B", "C: Opcja C"), List.of(1, 2));
+        Question question2 = new Question(QuestionType.SINGLE_CHOICE, "Treść pytania nr 2", List.of("A: Błędna", "B: Poprawna", "C: Poprawna"), List.of(1, 2));
 
         List<Question> questions = List.of(question1, question2);
         Quiz quizTest = new Quiz(questions);
