@@ -2,21 +2,23 @@ package quizapp;
 
 import java.util.List;
 import java.util.Scanner;
+
 import quizapp.model.Question;
 import quizapp.model.QuestionType;
 import quizapp.service.Quiz;
 import quizapp.service.scoring.ScoringStrategy;
-import quizapp.service.scoring.SingleChoiceStandardScoring;
+import quizapp.service.scoring.SingleChoicePenalizingScoring;
 import quizapp.util.InputParser;
 
 public class Main {
     public static void main(String[] args) {
         Question question1 = new Question(QuestionType.SINGLE_CHOICE, "Treść pytania nr 1", List.of("A: Poprawna", "B: Błędna", "C: Błędna"), List.of(0));
 
-        Question question2 = new Question(QuestionType.SINGLE_CHOICE, "Treść pytania nr 2", List.of("A: Błędna", "B: Poprawna", "C: Poprawna"), List.of(1, 2));
+        Question question2 = new Question(QuestionType.SINGLE_CHOICE, "Treść pytania nr 2", List.of("A: Błędna", "B: Poprawna", "C: Błędna"), List.of(1));
 
         List<Question> questions = List.of(question1, question2);
-        ScoringStrategy strategy = new SingleChoiceStandardScoring();
+        //ScoringStrategy strategy = new SingleChoiceStandardScoring();
+        ScoringStrategy strategy = new SingleChoicePenalizingScoring(0.5);
         Quiz quizTest = new Quiz(questions, strategy);
 
         try (Scanner scanner = new Scanner(System.in)) {
@@ -39,6 +41,7 @@ public class Main {
                 } else {
                     System.out.println("|| Błędne odpowiedzi.   ||");
                 }
+                System.out.println("|| Punkty: " + quizTest.getUserPoints() + "             ||");
                 System.out.println("=============================\n");
             }
         }
