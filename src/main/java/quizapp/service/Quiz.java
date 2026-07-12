@@ -1,25 +1,29 @@
 package quizapp.service;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import quizapp.model.Question;
+import quizapp.service.scoring.ScoringStrategy;
 
 public class Quiz {
     private final List<Question> questionList;
     private int questionIndex;
-    private int userPoints;
+    private double userPoints;
+    private final ScoringStrategy scoringStrategy;
 
-    public Quiz(List<Question> questionList) {
+    public Quiz(List<Question> questionList, ScoringStrategy scoringStrategy) {
         if(questionList == null || questionList.isEmpty()) {
             throw new IllegalArgumentException("Lista pytań nie może być pusta ani nullem!");
         }
+        if(scoringStrategy == null) {
+            throw new IllegalArgumentException("ScoringStrategy nie może być nullem!");
+        }
 
         this.questionList = questionList;
+        this.scoringStrategy = scoringStrategy;
         questionIndex = 0;
-        userPoints = 0;
+        userPoints = 0.0;
     }
 
-    public int getUserPoints() {
+    public double getUserPoints() {
         return userPoints;
     }
 
@@ -39,21 +43,10 @@ public class Quiz {
     }
 
     public boolean submitAnswer(List<Integer> chosenAnswers) {
-        if(isAnswerCorrect(chosenAnswers)) {
-            userPoints++;
-            nextQuestion();
-            return true;
-        }
-        nextQuestion();
-        return false;
-    }
-
-    public boolean isAnswerCorrect(List<Integer> chosenAnswers) {
         Question currentQuestion = getCurrentQuestion();
-        List<Integer> correctAnswers = currentQuestion.getCorrectAnswersIndex();
-        List<Integer> sortedChosenAnswers = new ArrayList<>(chosenAnswers);
-        Collections.sort(sortedChosenAnswers);
-        
-        return sortedChosenAnswers.equals(correctAnswers);
+        double scoredPoints = scoringStrategy.calculateScore(chosenAnswers, currentQuestion.getCorrectAnswersIndex());
+        userPoints += scoredPoints;
+        nextQuestion();
+        return scoredPoints > 0.0;
     }
 }
