@@ -6,7 +6,7 @@ public class MultipleChoiceStandardScoring implements ScoringStrategy{
 
     @Override
     public double calculateScore(List<Integer> chosenAnswers, List<Integer> correctAnswers) {
-        if(chosenAnswers.isEmpty()) {
+        if(chosenAnswers.isEmpty() || chosenAnswers.size() > correctAnswers.size()) {
             return 0.0;
         }
         if(chosenAnswers.equals(correctAnswers)) {
