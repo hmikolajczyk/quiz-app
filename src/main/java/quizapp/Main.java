@@ -17,17 +17,27 @@ public class Main {
         List<Question> questions = List.of(question1, question2);
         Quiz quizTest = new Quiz(questions);
 
-        System.out.println(quizTest.getCurrentQuestion().getQuestionText());
-
         Scanner scanner = new Scanner(System.in);
 
-        String userAnswer = scanner.nextLine();
-        List<Integer> answerIndices = InputParser.convertUserLettersToIndices(userAnswer, " +");
+        while(quizTest.hasNextQuestion()){
+            System.out.println("=============================");
+            System.out.println("||   " + quizTest.getCurrentQuestion().getQuestionText() + "    ||");
 
-        if(quizTest.isAnswerCorrect(answerIndices)) {
-            System.out.println("Poprawne odpowiedzi.");
-        } else {
-            System.out.println("Błędne odpowiedzi.");
+            for(String option : quizTest.getCurrentQuestion().getAnswerOptions()) {
+                System.out.println("|| "+ option + "              ||");
+            }
+            System.out.println("||-------------------------||");
+            System.out.println("|| Podaj odpowiedź:        ||");
+            System.out.print("|| ");
+            String userAnswer = scanner.nextLine();
+            List<Integer> answerIndices = InputParser.convertUserLettersToIndices(userAnswer, " +");
+
+            if(quizTest.submitAnswer(answerIndices)) {
+                System.out.println("|| Poprawne odpowiedzi.    ||");
+            } else {
+                System.out.println("|| Błędne odpowiedzi.   ||");
+            }
+            System.out.println("=============================\n");
         }
     }
 }

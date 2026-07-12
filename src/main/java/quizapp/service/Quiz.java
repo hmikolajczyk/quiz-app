@@ -19,6 +19,10 @@ public class Quiz {
         userPoints = 0;
     }
 
+    public int getUserPoints() {
+        return userPoints;
+    }
+
     public Question getCurrentQuestion() {
         if(questionIndex < 0 || questionIndex >= questionList.size()) {
             throw new IndexOutOfBoundsException("Skończyły się pytania!");
@@ -28,6 +32,20 @@ public class Quiz {
 
     public void nextQuestion() {
         questionIndex++;
+    }
+
+    public boolean hasNextQuestion() {
+        return questionIndex<questionList.size();
+    }
+
+    public boolean submitAnswer(List<Integer> chosenAnswers) {
+        if(isAnswerCorrect(chosenAnswers)) {
+            userPoints++;
+            nextQuestion();
+            return true;
+        }
+        nextQuestion();
+        return false;
     }
 
     public boolean isAnswerCorrect(List<Integer> chosenAnswers) {
