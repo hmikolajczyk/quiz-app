@@ -7,12 +7,9 @@ public class SingleChoicePenalizingScoring implements ScoringStrategy{
     private final double penaltyRate;
 
     public SingleChoicePenalizingScoring(double penaltyRate) {
-        if(penaltyRate < 0) {
-            this.penaltyRate = penaltyRate * (-1);
-        } else if(penaltyRate<1){
-            this.penaltyRate = penaltyRate;
-        } else {
-            throw new IllegalArgumentException("Kara musi mieścić się w zakresie (0.0; 1)!");
+        this.penaltyRate = Math.abs(penaltyRate);
+        if(penaltyRate<=0&&penaltyRate>1) {
+            throw new IllegalArgumentException("Kara musi mieścić się w zakresie (0.0; 1.0]!");
         }
     }
 

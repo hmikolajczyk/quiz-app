@@ -6,7 +6,7 @@ import java.util.Scanner;
 import quizapp.model.Question;
 import quizapp.model.QuestionType;
 import quizapp.service.Quiz;
-import quizapp.service.scoring.MultipleChoiceStandardScoring;
+import quizapp.service.scoring.MultipleChoicePenalizingScoring;
 import quizapp.service.scoring.ScoringStrategy;
 import quizapp.util.InputParser;
 
@@ -19,7 +19,8 @@ public class Main {
         List<Question> questions = List.of(question1, question2);
         //ScoringStrategy strategy = new SingleChoiceStandardScoring();
         //ScoringStrategy strategy = new SingleChoicePenalizingScoring(0.5);
-        ScoringStrategy strategy = new MultipleChoiceStandardScoring();
+        //ScoringStrategy strategy = new MultipleChoiceStandardScoring();
+        ScoringStrategy strategy = new MultipleChoicePenalizingScoring();
         Quiz quizTest = new Quiz(questions, strategy);
 
         try (Scanner scanner = new Scanner(System.in)) {
