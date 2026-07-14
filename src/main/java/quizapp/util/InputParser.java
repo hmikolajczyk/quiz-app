@@ -1,11 +1,12 @@
 package quizapp.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class InputParser {
     
-    public static List<Integer> convertUserLettersToIndices(String input,  String regex) {
+    public static List<Integer> convertUserLettersToIndices(String input, String regex) {
         String[] splitAnswers = input.trim().toLowerCase().split(regex);
         List<Integer> answerIndices = new ArrayList<>();
 
@@ -14,6 +15,7 @@ public class InputParser {
             int index = letter - 'a';
             answerIndices.add(index);
         }
+        Collections.sort(answerIndices);
 
         return answerIndices;
     }

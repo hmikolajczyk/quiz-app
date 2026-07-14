@@ -2,7 +2,7 @@ package quizapp.service.scoring;
 
 import java.util.List;
 
-public class MultipleChoiceStandardScoring implements ScoringStrategy{
+public class MultipleChoicePenalizingScoring implements ScoringStrategy{
 
     @Override
     public double calculateScore(List<Integer> chosenAnswers, List<Integer> correctAnswers, int totalOptionsCount) {
@@ -14,11 +14,17 @@ public class MultipleChoiceStandardScoring implements ScoringStrategy{
         }else {
             double pointsForAnswer = 0.0;
             for(int i = 0; i<totalOptionsCount;i++) {
-                if(correctAnswers.contains(i) && chosenAnswers.contains(i)) {
-                    pointsForAnswer += (1.0/correctAnswers.size());
+                if(correctAnswers.contains(i)) {
+                    if(chosenAnswers.contains(i)) {
+                        pointsForAnswer += (1.0/correctAnswers.size());
+                    } else {
+                        pointsForAnswer -=(1.0/correctAnswers.size());
+                    }
+                } else if(chosenAnswers.contains(i)) {
+                    pointsForAnswer -=(1.0/correctAnswers.size());
                 }
             }
-            return pointsForAnswer;
+            return Math.max(0.0, pointsForAnswer);
         }
     }
 }

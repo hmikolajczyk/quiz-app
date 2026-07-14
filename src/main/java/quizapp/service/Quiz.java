@@ -1,5 +1,6 @@
 package quizapp.service;
 import java.util.List;
+
 import quizapp.model.Question;
 import quizapp.service.scoring.ScoringStrategy;
 
@@ -44,7 +45,7 @@ public class Quiz {
 
     public boolean submitAnswer(List<Integer> chosenAnswers) {
         Question currentQuestion = getCurrentQuestion();
-        double scoredPoints = scoringStrategy.calculateScore(chosenAnswers, currentQuestion.getCorrectAnswersIndex());
+        double scoredPoints = scoringStrategy.calculateScore(chosenAnswers, currentQuestion.getCorrectAnswersIndex(), currentQuestion.getAnswerOptions().size());
         userPoints += scoredPoints;
         nextQuestion();
         return scoredPoints > 0.0;
